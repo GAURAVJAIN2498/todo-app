@@ -28,7 +28,7 @@ jobs:
         with:
           context: ./frontend
           push: true
-          tags: gauravj00/todo-frontend:${{ github.sha }  
+          tags: gauravj00/todo-frontend:${{ github.sha }} 
           
       - name: Test SSH connection
         uses: appleboy/ssh-action@v1
