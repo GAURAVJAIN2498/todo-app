@@ -21,14 +21,14 @@ jobs:
         with:
           context: ./backend
           push: true
-          tags: gauravj00/todo-backend:${{ github.sha }}
+          tags: gauravj00/todo-backend:latest
 
       - name: Build & push frontend
         uses: docker/build-push-action@v5
         with:
           context: ./frontend
           push: true
-          tags: gauravj00/todo-frontend:${{ github.sha }} 
+          tags: gauravj00/todo-frontend:latest 
           
       - name: Test SSH connection
         uses: appleboy/ssh-action@v1
@@ -39,6 +39,6 @@ jobs:
           script: |
            cd /home/ubuntu/todo-app
            git pull
-           ./deploy_bluegreen.sh ${{ github.sha }}
+           ./deploy_bluegreen.sh 
               
    
