@@ -21,14 +21,14 @@ jobs:
         with:
           context: ./backend
           push: true
-          tags: yourdockerhub/todo-backend:${{ github.sha }}
+          tags: gauravj00/todo-backend:${{ github.sha }}
 
       - name: Build & push frontend
         uses: docker/build-push-action@v5
         with:
           context: ./frontend
           push: true
-          tags: yourdockerhub/todo-frontend:${{ github.sha }}
+          tags: gauravj00/todo-frontend:${{ github.sha }}
 
       - name: Deploy on server
         uses: appleboy/ssh-action@v1
