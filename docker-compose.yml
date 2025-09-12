@@ -1,0 +1,34 @@
+version: "3.8"
+services:
+  backend_blue:
+    image: yourdockerhub/todo-backend:${TAG}
+    container_name: backend_blue
+    networks: [todo-net]
+
+  backend_green:
+    image: yourdockerhub/todo-backend:${TAG}
+    container_name: backend_green
+    networks: [todo-net]
+
+  frontend_blue:
+    image: yourdockerhub/todo-frontend:${TAG}
+    container_name: frontend_blue
+    networks: [todo-net]
+
+  frontend_green:
+    image: yourdockerhub/todo-frontend:${TAG}
+    container_name: frontend_green
+    networks: [todo-net]
+
+  nginx:
+    image: nginx:stable
+    container_name: todo_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    networks: [todo-net]
+
+networks:
+  todo-net:
+
