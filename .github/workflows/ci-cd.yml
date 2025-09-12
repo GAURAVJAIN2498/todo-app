@@ -37,7 +37,8 @@ jobs:
           username: ${{ secrets.SERVER_USER }}   # should be "root"
           key: ${{ secrets.SERVER_SSH_KEY }}     # private key.pem contents
           script: |
-            whoami
-            hostname
-            date    
+           cd /home/ubuntu/todo-app
+           git pull
+           ./deploy_bluegreen.sh ${{ github.sha }}
+              
    
