@@ -30,10 +30,10 @@ jobs:
           push: true
           tags: gauravj00/todo-frontend:${{ github.sha }}
           
-     - name: Decode SSH Key
-       run: |
-        echo "${{ secrets.SERVER_SSH_KEY_BASE64 }}" | base64 -d > id_rsa
-        chmod 600 id_rsa
+      - name: Decode SSH Key
+        run: |
+          echo "${{ secrets.SERVER_SSH_KEY_BASE64 }}" | base64 -d > id_rsa
+          chmod 600 id_rsa
         
       - name: Deploy on server
         uses: appleboy/ssh-action@v1
