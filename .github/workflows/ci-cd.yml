@@ -31,7 +31,7 @@ jobs:
           tags: gauravj00/todo-frontend:${{ github.sha }}
       - name: Deploy todo-app locally
         run: |
-          cd /root/todo-app
+          cd /home/ongraph/todo-app
           git pull
           ./deploy_bluegreen.sh ${{ github.sha }}   
     ##  - name: Deploy on server
