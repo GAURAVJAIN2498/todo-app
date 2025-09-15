@@ -10,6 +10,7 @@ DEBUG = True
 
 # Allow hosts from environment or default
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
+ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS] 
 
 # Installed apps
 INSTALLED_APPS = [
