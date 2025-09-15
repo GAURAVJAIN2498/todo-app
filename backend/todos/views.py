@@ -10,5 +10,3 @@ class TodoViewSet(viewsets.ModelViewSet):
 # Health endpoint
 def health(request):
     return JsonResponse({"status": "ok"})
-
-
