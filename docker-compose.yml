@@ -10,10 +10,11 @@ services:
     ports:
       - "8001:8000"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health/"]
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/').read()"]
       interval: 10s
       timeout: 5s
       retries: 5
+
 
   backend_green:
     image: gauravj00/todo-backend:latest
@@ -24,10 +25,11 @@ services:
     ports:
       - "8000:8000"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health/"]
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/').read()"]
       interval: 10s
       timeout: 5s
       retries: 5
+
 
   frontend_blue:
     image: gauravj00/todo-frontend:latest
