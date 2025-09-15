@@ -9,6 +9,5 @@ router.register(r'todos', TodoViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('health/', health),  # <-- Add this line
+    path('health/', health),  # healthcheck endpoint
 ]
-
