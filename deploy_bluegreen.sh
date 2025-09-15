@@ -7,7 +7,7 @@ export TAG
 echo "Deploying green with tag $TAG..."
 
 # Start green containers
-docker compose -f docker-compose.prod.yml up -d backend_green frontend_green
+docker compose -f docker-compose.yml up -d backend_green frontend_green
 
 # Wait for backend to be ready
 echo "Waiting for backend_green to be healthy..."
