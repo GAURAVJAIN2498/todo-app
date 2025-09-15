@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
+ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS] 
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
