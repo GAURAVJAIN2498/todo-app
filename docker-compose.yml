@@ -6,7 +6,7 @@ services:
     container_name: backend_blue
     networks: [todo-net]
     environment:
-      - DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1,backend_green,backend_green_upstream,backend_blue_upstream
+      - DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1,backend_blue,backend_blue_upstream,backend_green_upstream
     ports:
       - "8001:8000"
     healthcheck:
