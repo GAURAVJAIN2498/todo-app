@@ -11,7 +11,8 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks: [todo-net]
-
+    ports:
+      - "5432:5432"
   backend_blue:
     image: gauravj00/todo-backend:latest
     container_name: backend_blue
