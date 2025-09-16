@@ -52,3 +52,13 @@ ROOT_URLCONF = 'backend.urls'
 # Templates / Database / etc (keep your existing configs)
 
 CORS_ALLOW_ALL_ORIGINS = True  # allow React
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB', 'tododb'),
+        'USER': os.getenv('POSTGRES_USER', 'todo'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'todo123'),
+        'HOST': os.getenv('DATABASE_HOST', 'db'),
+        'PORT': os.getenv('DATABASE_PORT', '5432'),
+    }
+}
