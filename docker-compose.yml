@@ -1,35 +1,56 @@
-# docker-compose up -d
 version: "3.8"
 services:
+  db:
+    image: postgres:15
+    container_name: todo_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: todo_db
+      POSTGRES_USER: todo_user
+      POSTGRES_PASSWORD: todo_pass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks: [todo-net]
+
   backend_blue:
     image: gauravj00/todo-backend:latest
     container_name: backend_blue
     networks: [todo-net]
     environment:
-      - DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1,backend_blue,backend_blue_upstream,backend_green_upstream
+      - DJANGO_ALLOWED_HOSTS=54.89.166.189,localhost,127.0.0.1,backend_blue,backend_blue_upstream,backend_green_upstream
+      - POSTGRES_HOST=db
+      - POSTGRES_DB=todo_db
+      - POSTGRES_USER=todo_user
+      - POSTGRES_PASSWORD=todo_pass
+    depends_on:
+      - db
     ports:
       - "8001:8000"
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/').read()"]
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health/"]
       interval: 10s
       timeout: 5s
       retries: 5
-
 
   backend_green:
     image: gauravj00/todo-backend:latest
     container_name: backend_green
     networks: [todo-net]
     environment:
-      - DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1,backend_green,backend_green_upstream,backend_blue_upstream
+      - DJANGO_ALLOWED_HOSTS=54.89.166.189,localhost,127.0.0.1,backend_green,backend_green_upstream,backend_blue_upstream
+      - POSTGRES_HOST=db
+      - POSTGRES_DB=todo_db
+      - POSTGRES_USER=todo_user
+      - POSTGRES_PASSWORD=todo_pass
+    depends_on:
+      - db
     ports:
       - "8000:8000"
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/').read()"]
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health/"]
       interval: 10s
       timeout: 5s
       retries: 5
-
 
   frontend_blue:
     image: gauravj00/todo-frontend:latest
@@ -66,3 +87,7 @@ services:
 
 networks:
   todo-net:
+
+volumes:
+  postgres_data:
+
