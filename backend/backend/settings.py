@@ -13,6 +13,17 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 
+import os
+
+# Read DJANGO_ALLOWED_HOSTS from environment (comma-separated)
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "").split(",")
+
+# Clean spaces, ignore empties
+ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS if h.strip()]
+
+# For debugging (optional)
+print("ALLOWED_HOSTS =", ALLOWED_HOSTS)
+
 # Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,9 +32,6 @@ SECRET_KEY = 'your-secret-key'
 DEBUG = True
 
 # Allow hosts from environment or default
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
-ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS] 
-
 # Installed apps
 INSTALLED_APPS = [
     'django.contrib.admin',
