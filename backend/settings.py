@@ -1,50 +1,55 @@
+
 import os
 from pathlib import Path
 
-# Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'your-secret-key'
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "dev-secret-key")
 
-DEBUG = True
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.getenv("DJANGO_DEBUG", "False").lower() == "true"
 
-# Allow hosts from environment or default
-
-
-# Read DJANGO_ALLOWED_HOSTS from environment (comma-separated)
+# Allowed hosts
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "").split(",")
-
-# Clean spaces, ignore empties
 ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS if h.strip()]
 
-# For debugging (optional)
-print("ALLOWED_HOSTS =", ALLOWED_HOSTS)
+# Safe fallback for local dev
+if not ALLOWED_HOSTS:
+    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
-# Installed apps
+# Application definition
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'rest_framework',
-    'todos',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    # your apps here...
 ]
 
-# Middleware etc. (keep existing)
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'backend.urls'
+ROOT_URLCONF = "backend.urls"
 
-# Templates / Database / etc (keep your existing configs)
+WSGI_APPLICATION = "backend.wsgi.application"
 
-CORS_ALLOW_ALL_ORIGINS = True  # allow React
+# Database (example, adjust if you use Postgres/MySQL)
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
+
+# Static files
+STATIC_URL = "static/"
