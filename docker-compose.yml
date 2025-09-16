@@ -81,7 +81,7 @@ services:
     image: nginx:stable
     container_name: todo_nginx
     ports:
-      - "8081:80"
+      - "80:80"
     volumes:
       - ./nginx:/etc/nginx/conf.d
     networks: [todo-net]
