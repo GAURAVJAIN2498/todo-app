@@ -15,13 +15,15 @@ from pathlib import Path
 
 import os
 
-# Read DJANGO_ALLOWED_HOSTS from environment (comma-separated)
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "").split(",")
 
-# Clean spaces, ignore empties
+# Allowed hosts
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
 ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS if h.strip()]
 
-# For debugging (optional)
+# Safe fallback for local dev
+if not ALLOWED_HOSTS:
+    ALLOWED_HOSTS = ["54.89.166.189,localhost", "127.0.0.1"]
+
 print("ALLOWED_HOSTS =", ALLOWED_HOSTS)
 
 # Build paths inside the project
