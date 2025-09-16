@@ -38,7 +38,7 @@ services:
     container_name: backend_green
     networks: [todo-net]
     environment:
-      - DJANGO_ALLOWED_HOSTS=54.89.166.189,localhost,127.0.0.1,backend_green,backend_green_upstream,backend_blue_upstream
+      - DJANGO_ALLOWED_HOSTS=54.89.166.189,localhost,127.0.0.1,backend_green:8000,backend_green_upstream,backend_blue_upstream
       - POSTGRES_HOST=db
       - POSTGRES_DB=todo_db
       - POSTGRES_USER=todo_user
